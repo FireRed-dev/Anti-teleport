@@ -1,0 +1,93 @@
+function cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw(code)res=''for i in ipairs(code)do res=res..string.char(code[i]/500)end return res end 
+
+
+local Players = game:GetService(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({40000,54000,48500,60500,50500,57000,57500}))
+local RunService = game:GetService(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({41000,58500,55000,41500,50500,57000,59000,52500,49500,50500}))
+local player = Players.LocalPlayer
+
+-- Create GUI
+local screenGui = Instance.new(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({41500,49500,57000,50500,50500,55000,35500,58500,52500}))
+screenGui.Parent = game.CoreGui
+screenGui.Name = cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({32500,55000,58000,52500,42000,50500,54000,50500,56000,55500,57000,58000,42500,36500})
+
+local frame = Instance.new(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({35000,57000,48500,54500,50500}))
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.8, 0, 0.1, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 2
+frame.Parent = screenGui
+
+local titleLabel = Instance.new(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({42000,50500,60000,58000,38000,48500,49000,50500,54000}))
+titleLabel.Size = UDim2.new(1, 0, 0.3, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({32500,55000,58000,52500,22500,42000,50500,54000,50500,56000,55500,57000,58000})
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextScaled = true
+titleLabel.Parent = frame
+
+local toggleButton = Instance.new(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({42000,50500,60000,58000,33000,58500,58000,58000,55500,55000}))
+toggleButton.Size = UDim2.new(1, 0, 0.5, 0)
+toggleButton.Position = UDim2.new(0, 0, 0.4, 0)
+toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+toggleButton.Text = cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({34500,55000,48500,49000,54000,50500})
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleButton.TextScaled = true
+toggleButton.Parent = frame
+
+-- Variables
+local humanoidRootPart = player.Character and player.Character:FindFirstChild(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({36000,58500,54500,48500,55000,55500,52500,50000,41000,55500,55500,58000,40000,48500,57000,58000}))
+local humanoid = player.Character and player.Character:FindFirstChild(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({36000,58500,54500,48500,55000,55500,52500,50000}))
+local lastPosition = humanoidRootPart and humanoidRootPart.Position or Vector3.new()
+local maxAllowedDistance = 20
+local detectionRunning = false
+local detectionConnection
+
+-- Teleport detection functions
+local function startDetection()
+    if detectionRunning then return end
+    detectionRunning = true
+    toggleButton.Text = cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({34000,52500,57500,48500,49000,54000,50500})
+    lastPosition = humanoidRootPart.Position
+
+    detectionConnection = RunService.Heartbeat:Connect(function()
+        humanoidRootPart = player.Character and player.Character:FindFirstChild(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({36000,58500,54500,48500,55000,55500,52500,50000,41000,55500,55500,58000,40000,48500,57000,58000}))
+        humanoid = player.Character and player.Character:FindFirstChild(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({36000,58500,54500,48500,55000,55500,52500,50000}))
+        
+        if humanoidRootPart and humanoid then
+            local currentPosition = humanoidRootPart.Position
+            local distanceMoved = (currentPosition - lastPosition).Magnitude
+
+            if distanceMoved > maxAllowedDistance then
+                humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+                humanoidRootPart.CFrame = CFrame.new(lastPosition)
+                warn(cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({42000,50500,54000,50500,56000,55500,57000,58000,16000,50000,50500,58000,50500,49500,58000,50500,50000,16500,16000,41000,50500,57500,50500,58000,58000,52500,55000,51500,16000,56000,55500,57500,52500,58000,52500,55500,55000,23000}))
+                task.delay(0.1, function()
+                    humanoid:ChangeState(Enum.HumanoidStateType.Running)
+                end)
+            else
+                lastPosition = currentPosition
+            end
+        end
+    end)
+end
+
+local function stopDetection()
+    if not detectionRunning then return end
+    detectionRunning = false
+    toggleButton.Text = cXuhIUkghBQuDiJzHDKDhOvjefinNHrmtQxlYcRAEjARtWEOTBeYbiXpLLfdIkRmw({34500,55000,48500,49000,54000,50500})
+    
+    if detectionConnection then
+        detectionConnection:Disconnect()
+        detectionConnection = nil
+    end
+end
+
+-- Button functionality
+toggleButton.MouseButton1Click:Connect(function()
+    if detectionRunning then
+        stopDetection()
+    else
+        startDetection()
+    end
+end)
+    
